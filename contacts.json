@@ -1,0 +1,23 @@
+{
+    "contact": {
+      "firstName": "Rebecca",
+      "lastName": "Leach",
+      "email": "rebecca@villagelanepublishing.com",
+      "title": "Publisher, Senior Editor, Marketing Advisor",
+      "img_url": "https://i0.wp.com/villagelanepublishing/wp-content/uploads/2018/03/Mom-150x150.jpg?resize=150%2C150&ssl=1"
+    },
+    "contact2": {
+      "firstName": "Elizabeth",
+      "lastName": "Miller",
+      "email": "elizabeth@villagelanepublishing.com",
+      "title": "Acquisition Editor",
+      "img_url": "https://i0.wp.com/villagelanepublishing/wp-content/uploads/2018/03/Elizabth-150x150.jpg?resize=150%2C150&ssl=1"
+    },
+    "contact3": {
+      "firstName": "Danielle",
+      "lastName": "Hale",
+      "email": "danielle@villagelanepublishing.com",
+      "title": "Copy Editor",
+      "img_url": "https://i0.wp.com/villagelanepublishing.com/wp-content/uploads/2018/07/Danielle2.jpg?resize=150%2C150&ssl=1"
+    }
+  }

@@ -1,7 +1,10 @@
 const routes = require('express').Router();
+const router = express.Router();
 
-routes.get('/', (req, res) => {
-    res.send('Joshua Watson')
-});
+router.use('/contacts', require('./contacts'))
+
+// routes.get('/', (req, res) => {
+//     res.send('Joshua Watson')
+// });
 
 module.exports = routes;
