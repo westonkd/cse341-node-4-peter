@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
 
 const getSingle = async (req, res) => {
     const userId = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db().collection('contacts').find({
+    const result = await mongodb.getDb().db("cse341-watson").collection('contacts').find({
         _id: userId
     });
     result.toArray().then((lists) => {
@@ -26,15 +26,15 @@ const createContact = async (req, res, next) => {
             firstName,
             lastName,
             email,
-            favoriteColor,
-            birthday
+            title,
+            img_url
         } = req.body;
         const response = Contact.createContact({
             firstName,
             lastName,
             email,
-            favoriteColor,
-            birthday,
+            title,
+            img_url,
         });
 
         res.status(201);
@@ -53,16 +53,16 @@ const updateContact = async (req, res, next) => {
             firstName,
             lastName,
             email,
-            favoriteColor,
-            birthday
+            title,
+            img_url
         } = req.body;
 
         await Contact.updateContact(req.params.id, {
             firstName,
             lastName,
             email,
-            favoriteColor,
-            birthday,
+            title,
+            img_url,
         });
 
         res.status(204);
