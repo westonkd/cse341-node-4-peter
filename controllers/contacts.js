@@ -20,68 +20,122 @@ const getSingle = async (req, res) => {
     });
 };
 
-const createContact = async (req, res, next) => {
-    try {
-        const {
-            firstName,
-            lastName,
-            email,
-            title,
-            img_url
-        } = req.body;
-        const response = Contact.createContact({
-            firstName,
-            lastName,
-            email,
-            title,
-            img_url,
-        });
-
-        res.status(201);
-        res.json({
-            _id: response.instertedID
-        });
-    } catch (e) {
-        next(e);
+const createContact = async (req, res) => {
+    const contact = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        title: req.body.title,
+        img_url: req.body.img_url
+    };
+    const response = await mongodb.getDb().db("cse341-watson").collection('contacts').insertOne(contact);
+    if (response.acknowledged) {
+        res.status(201).json(response);
+    } else {
+        res.status(500).json(response.error || 'Some error occurred while creating the contact.');
     }
 };
 
-
-const updateContact = async (req, res, next) => {
-    try {
-        const {
-            firstName,
-            lastName,
-            email,
-            title,
-            img_url
-        } = req.body;
-
-        await Contact.updateContact(req.params.id, {
-            firstName,
-            lastName,
-            email,
-            title,
-            img_url,
-        });
-
-        res.status(204);
-        res.json(req.body);
-    } catch (e) {
-        next(e);
+const updateContact = async (req, res) => {
+    const userId = new ObjectId(req.params.id);
+    // be aware of updateOne if you only want to update specific fields
+    const contact = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        title: req.body.title,
+        img_url: req.body.img_url
+    };
+    const response = await mongodb
+        .getDb()
+        .db("cse341-watson")
+        .collection('contacts')
+        .replaceOne({
+            _id: userId
+        }, contact);
+    console.log(response);
+    if (response.modifiedCount > 0) {
+        res.status(204).send();
+    } else {
+        res.status(500).json(response.error || 'Some error occurred while updating the contact.');
     }
 };
 
-const deleteContact = async (req, res, next) => {
-    try {
-        await Contact.deleteContact(req.params.id);
-
-        res.status(200);
-        res.end();
-    } catch (e) {
-        next(e);
+const deleteContact = async (req, res) => {
+    const userId = new ObjectId(req.params.id);
+    const response = await mongodb.getDb().db("cse341-watson").collection('contacts').remove({
+        _id: userId
+    }, true);
+    console.log(response);
+    if (response.deletedCount > 0) {
+        res.status(204).send();
+    } else {
+        res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
     }
 };
+
+// const createContact = async (req, res, next) => {
+//     try {
+//         const {
+//             firstName,
+//             lastName,
+//             email,
+//             title,
+//             img_url
+//         } = req.body;
+//         const response = Contact.createContact({
+//             firstName,
+//             lastName,
+//             email,
+//             title,
+//             img_url,
+//         });
+
+//         res.status(201);
+//         res.json({
+//             _id: response.instertedID
+//         });
+//     } catch (e) {
+//         next(e);
+//     }
+// };
+
+
+// const updateContact = async (req, res, next) => {
+//     try {
+//         const {
+//             firstName,
+//             lastName,
+//             email,
+//             title,
+//             img_url
+//         } = req.body;
+
+//         await Contact.updateContact(req.params.id, {
+//             firstName,
+//             lastName,
+//             email,
+//             title,
+//             img_url,
+//         });
+
+//         res.status(204);
+//         res.json(req.body);
+//     } catch (e) {
+//         next(e);
+//     }
+// };
+
+// const deleteContact = async (req, res, next) => {
+//     try {
+//         await Contact.deleteContact(req.params.id);
+
+//         res.status(200);
+//         res.end();
+//     } catch (e) {
+//         next(e);
+//     }
+// };
 
 module.exports = {
     getAll,
