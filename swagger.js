@@ -6,7 +6,7 @@ const doc = {
         description: 'Village Lane Publishing Contacts',
     },
     host: '',
-    schemes: ['http', 'https'],
+    schemes: ['http', 'https']
 };
 
 const outputFile = 'swagger-output.json';
