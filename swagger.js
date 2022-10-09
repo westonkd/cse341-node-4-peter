@@ -5,8 +5,8 @@ const doc = {
         title: 'Contacts API',
         description: 'Village Lane Publishing Contacts',
     },
-    host: 'localhost:8080',
-    schemes: ['http'],
+    host: '',
+    schemes: ['http', 'https'],
 };
 
 const outputFile = 'swagger-output.json';
