@@ -2,6 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
+    // #swagger.description = 'Get all contacts'
     const result = await mongodb.getDb().db("cse341-watson").collection('contacts').find();
     result.toArray().then((lists) => {
         res.setHeader('Content-Type', 'application/json');
@@ -10,6 +11,7 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
+    // #swagger.description = 'Get single contact by ID'
     const userId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db("cse341-watson").collection('contacts').find({
         _id: userId
@@ -21,6 +23,7 @@ const getSingle = async (req, res) => {
 };
 
 const createContact = async (req, res) => {
+    // #swagger.description = 'Create contact'
     const contact = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -37,6 +40,7 @@ const createContact = async (req, res) => {
 };
 
 const updateContact = async (req, res) => {
+    // #swagger.description = 'Update contact'
     const userId = new ObjectId(req.params.id);
     // be aware of updateOne if you only want to update specific fields
     const contact = {
@@ -62,6 +66,7 @@ const updateContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
+    // #swagger.description = 'Delete contact's
     const userId = new ObjectId(req.params.id);
     const response = await mongodb.getDb().db("cse341-watson").collection('contacts').remove({
         _id: userId
