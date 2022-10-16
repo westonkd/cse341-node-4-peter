@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
     // #swagger.description = 'Get all contacts'
-    const result = await mongodb.getDb().db("cse341-watson").collection('contacts').find();
+    const result = await mongodb.getDb().db("cs_341_projects").collection('contacts').find();
     result.toArray().then((lists) => {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
@@ -13,7 +13,7 @@ const getAll = async (req, res) => {
 const getSingle = async (req, res) => {
     // #swagger.description = 'Get single contact by ID'
     const userId = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db("cse341-watson").collection('contacts').find({
+    const result = await mongodb.getDb().db("cs_341_projects").collection('contacts').find({
         _id: userId
     });
     result.toArray().then((lists) => {
@@ -31,7 +31,7 @@ const createContact = async (req, res) => {
         title: req.body.title,
         img_url: req.body.img_url
     };
-    const response = await mongodb.getDb().db("cse341-watson").collection('contacts').insertOne(contact);
+    const response = await mongodb.getDb().db("cs_341_projects").collection('contacts').insertOne(contact);
     if (response.acknowledged) {
         res.status(201).json(response);
     } else {
@@ -52,7 +52,7 @@ const updateContact = async (req, res) => {
     };
     const response = await mongodb
         .getDb()
-        .db("cse341-watson")
+        .db("cs_341_projects")
         .collection('contacts')
         .replaceOne({
             _id: userId
@@ -68,7 +68,7 @@ const updateContact = async (req, res) => {
 const deleteContact = async (req, res) => {
     // #swagger.description = 'Delete contact's
     const userId = new ObjectId(req.params.id);
-    const response = await mongodb.getDb().db("cse341-watson").collection('contacts').remove({
+    const response = await mongodb.getDb().db("cs_341_projects").collection('contacts').remove({
         _id: userId
     }, true);
     console.log(response);
